@@ -7,7 +7,6 @@ This project analyzes data from the annual official survey of Greek hotels condu
 - Data pre-processing and NA handling
 - Price and occupancy analysis by month, region, and star rating
 - Visualizations: boxplots, scatterplots 
-- Weighted means, interquartile range, skewness
 
 # Tools Used
 
@@ -20,8 +19,8 @@ This project analyzes data from the annual official survey of Greek hotels condu
 
 - data/: raw excel data
 - code/: R scripts used for analysis
-- output/: final results and plots
-- docs/: Full report (Greek)
+- output/: plots
+- Full report (Greek)
 
 # Author
 
