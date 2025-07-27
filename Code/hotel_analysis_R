@@ -1,0 +1,68 @@
+# Hotel Data Analysis with R
+# Author: [Dimitris Peppas]
+# Source: ITEP - Hellenic Chamber of Hotels Survey (2023)
+# Description: This script performs exploratory analysis and visualization on hotel survey data from Greece.
+
+# -----------------------------
+# 1. Load Required Libraries
+# -----------------------------
+library(dplyr)
+library(ggplot2)
+library(readxl)
+library(summarytools)
+
+# -----------------------------
+# 2. Load Cleaned Dataset
+# -----------------------------
+
+DATA2 <- DATA1  # cleaned dataset
+
+# -----------------------------
+# 3. Quick Data Overview
+# -----------------------------
+str(data)
+dfSummary(data)
+
+# -----------------------------
+# 4. Descriptive Statistics
+# -----------------------------
+summary(DATA2$ARR0523)  # Room price in May
+summary(DATA2$ARR0823)  # Room price in August
+
+tapply(DATA2$ARR0523, DATA2$OPERATION, mean, na.rm = TRUE)  # Mean price of rooms based on operation 
+tapply(DATA2$ARR0523, DATA2$STARS, mean, na.rm = TRUE)  # Mean price of rooms based on stars
+
+# -----------------------------
+# 5. Boxplot: May Prices by Operation Type
+# -----------------------------
+ggplot(DATA2, aes(x = OPERATION, y = ARR0523)) +
+  geom_boxplot(fill = "lightblue") +
+  labs(title = "Room Prices in May by Hotel Operation Type",
+       y = "Price in €", x = "Operation") +
+  theme_minimal()
+
+# -----------------------------
+# 6. Boxplot: May Prices by Star Rating
+# -----------------------------
+ggplot(DATA2, aes(x = as.factor(STARS), y = ARR0523)) +
+  geom_boxplot(fill = "lightgreen") +
+  labs(title = "Room Prices in May by Hotel Star Rating",
+       x = "Star Rating", y = "Price in €") +
+  theme_minimal()
+
+# -----------------------------
+# 7. Smallest Hotels (e.g. min beds)
+# -----------------------------
+min_beds <- min(DATA2$BEDS[DATA2$BEDS > 0], na.rm = TRUE)
+smallest_hotels <- filter(DATA2, BEDS == min_beds)
+print(smallest_hotels)
+
+
+# -----------------------------
+# Notes:
+# -----------------------------
+# - ARR0523 = Average room rate in May 2023
+# - OPERATION = YEARROUND or SEASONAL
+# - STARS = Hotel star rating
+# - REGION_TWO = Mainland / Island distinction
+
